@@ -2,7 +2,7 @@ import { authMiddleware } from "@clerk/nextjs";
 
 export default authMiddleware({
   // Allow public access to the following api endpoint
-  publicRoutes: ["/api/webhooks/clerk"],
+  publicRoutes: ["/api/webhooks(.*)"],
 });
 
 export const config = {
