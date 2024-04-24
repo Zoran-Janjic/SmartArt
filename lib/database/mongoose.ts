@@ -26,6 +26,7 @@ if (!cached) {
  * @throws {Error} If MONGODB_URL is not provided.
  */
 export const connectToDatabase = async () => {
+  console.log("Im in the connectToDatabase");
   // Check if a connection already exists
   if (cached.conn) return cached.conn;
 
