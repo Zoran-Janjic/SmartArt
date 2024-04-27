@@ -2,8 +2,6 @@ import mongoose, { Mongoose } from "mongoose";
 
 const MONGO_DB_URL = process.env.MONGODB_CONNECTION_STRING;
 
-const MONGODB_URL = process.env.MONGODB_URL;
-
 interface MongooseConnection {
   conn: Mongoose | null;
   promise: Promise<Mongoose> | null;
@@ -31,14 +29,15 @@ export const connectToDatabase = async () => {
   if (cached.conn) return cached.conn;
 
   // Throw an error if MONGODB_URL is missing
-  if (!MONGODB_URL) throw new Error("Missing MONGODB_URL");
+  if (!MONGO_DB_URL) throw new Error("Missing MONGODB_URL");
 
   // Create a new connection if one doesn't exist
   cached.promise =
     cached.promise ||
-    mongoose.connect(MONGODB_URL, {
+    mongoose.connect(MONGO_DB_URL, {
       dbName: "smartartCluster0",
       bufferCommands: false,
+      connectTimeoutMS: 30000,
     });
 
   // Await the connection promise and store the connection in cached.conn
